@@ -6,7 +6,7 @@ import os
 
 # Set up path for images
 img_path = []
-path = "D:\\Project\\Image_Editor\\Images"
+path = "Images"
 for filename in os.listdir(path):
     img_path.append(os.path.join(path, filename))
 
@@ -50,7 +50,7 @@ def submit():
         image_edit(image, brightness_value/50, contrast_value/50, sharpness_value/50, color_value/50)
     
     res = CTkLabel(root, text="Image Edited Successfully", width=200, height=40)
-    res.place(x=500, y=300)
+    res.place(x=500, y=350)
 
 def edit():
     """Handles the 'Edit Image' functionality."""
