@@ -10,19 +10,16 @@ path = "D:\\Project\\Image_Editor\\Images"
 for filename in os.listdir(path):
     img_path.append(os.path.join(path, filename))
 
-# Function to remove widgets except for frame1
 def remove_widgets():
     """Removes all widgets from the root window except for frame1."""
     for widget in root.winfo_children():
         if widget not in [frame1]:
             widget.destroy()
 
-# Function to update the slider value label
 def update_value_label(value, label):
     """Updates the label with the current value of the slider."""
     label.configure(text=f"{value:.2f}")  # Display the value with 2 decimal points
 
-# Function to create sliders dynamically
 def create_slider(label_text, slider_range, x, y, slider_callback):
     """Creates a slider with the given parameters and returns the slider and value label."""
     label = CTkLabel(root, text=label_text, width=200, height=40)
@@ -37,7 +34,6 @@ def create_slider(label_text, slider_range, x, y, slider_callback):
     
     return slider, value_label
 
-# Function to handle the image editing process
 def submit():
     """Handles the submission of values from the sliders and applies the image edits."""
     brightness_value = brightness_slider.get()
@@ -56,7 +52,6 @@ def submit():
     res = CTkLabel(root, text="Image Edited Successfully", width=200, height=40)
     res.place(x=500, y=300)
 
-# Function to handle the 'Edit Image' functionality
 def edit():
     """Handles the 'Edit Image' functionality."""
     remove_widgets()
