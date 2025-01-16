@@ -168,24 +168,6 @@ def resize():
     submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_resize(height_entry, width_entry))
     submit_button.place(x=500, y=250)
 
-def handle_crop(left_entry, top_entry, right_entry, bottom_entry):
-    try:
-        left = int(left_entry.get())
-        top = int(top_entry.get())
-        right = int(right_entry.get())
-        bottom = int(bottom_entry.get())
-
-        print(f"Cropping with coordinates: top={top}, left={left}, right={right}, bottom={bottom}")
-
-        for i in img_path:
-            img_crop(i, left, top, right, bottom)
-        
-        res = CTkLabel(root, text="Image Cropped Successfully", width=200, height=40)
-        res.place(x=500, y=400)
-    
-    except Exception as e:
-        print(f"Error in handle_crop: {e}")
-
 def crop():
     remove_widgets()
 
@@ -216,6 +198,24 @@ def crop():
     bottom_entry = CTkEntry(root, width=200, height=40)
     bottom_entry.place(x=500, y=300)
 
+    def handle_crop(left_entry, top_entry, right_entry, bottom_entry):
+        try:
+            left = int(left_entry.get())
+            top = int(top_entry.get())
+            right = int(right_entry.get())
+            bottom = int(bottom_entry.get())
+
+            print(f"Cropping with coordinates: top={top}, left={left}, right={right}, bottom={bottom}")
+
+            for i in img_path:
+                img_crop(i, left, top, right, bottom)
+        
+            res = CTkLabel(root, text="Image Cropped Successfully", width=200, height=40)
+            res.place(x=500, y=400)
+    
+        except Exception as e:
+            print(f"Error in handle_crop: {e}")
+
     submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_crop(left_entry, top_entry, right_entry, bottom_entry))
     submit_button.place(x=500, y=350)
 
@@ -238,6 +238,61 @@ def rotate():
         res.place(x=500, y=250)
     
     submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_rotate(angle_entry))
+    submit_button.place(x=500, y=200)
+
+def blur():
+    remove_widgets()
+
+    label_radius = CTkLabel(root, text="Enter Radius:", width=200, height=40)
+    label_radius.place(x=250, y=150)
+
+    radius_entry = CTkEntry(root, width=200, height=40)
+    radius_entry.place(x=500, y=150)
+
+    def handle_blur(radius_entry):
+        radius = radius_entry.get()
+
+        for i in img_path:
+            img_blur(i, int(radius))
+        
+        res = CTkLabel(root, text="Image Blurred Successfully", width=200, height=40)
+        res.place(x=500, y=250)
+    
+    submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_blur(radius_entry))
+    submit_button.place(x=500, y=200)
+
+def sharp():
+    remove_widgets()
+
+    label_sharpness = CTkLabel(root, text="Do you want to Sharpen your Image:", width=200, height=40)
+    label_sharpness.place(x=500, y=150)
+
+    def handle_sharp():
+
+        for i in img_path:
+            img_sharpen(i)
+        
+        res = CTkLabel(root, text="Image Sharpened Successfully", width=200, height=40)
+        res.place(x=500, y=250)
+
+    submit_button = CTkButton(root, text="Yes", width=200, height=40, command=lambda: handle_sharp())
+    submit_button.place(x=500, y=200)
+
+def edge_detection():
+    remove_widgets()
+
+    label_edge = CTkLabel(root, text="Do you want to Enhance Edges in your Image:", width=200, height=40)
+    label_edge.place(x=500, y=150)
+
+    def handle_edge():
+
+        for i in img_path:
+            img_edge(i)
+        
+        res = CTkLabel(root, text="Edges Enhanced Successfully", width=200, height=40)
+        res.place(x=500, y=250)
+
+    submit_button = CTkButton(root, text="Yes", width=200, height=40, command=lambda: handle_edge())
     submit_button.place(x=500, y=200)
 
 # Set up the Tkinter root window
@@ -271,5 +326,14 @@ button_crop.pack(side=TOP, pady=10)
 
 button_rotate = CTkButton(frame1, text="Rotate Image", width=200, height=40, command=rotate)
 button_rotate.pack(side=TOP, pady=10)
+
+button_blur = CTkButton(frame1, text="Blur Image", width=200, height=40, command=blur)
+button_blur.pack(side=TOP, pady=10)
+
+button_sharp = CTkButton(frame1, text="Sharpen Image", width=200, height=40, command=sharp)
+button_sharp.pack(side=TOP, pady=10)
+
+button_edge = CTkButton(frame1, text="Edge Detection", width=200, height=40, command=edge_detection)
+button_edge.pack(side=TOP, pady=10)
 
 root.mainloop()
