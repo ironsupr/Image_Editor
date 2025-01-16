@@ -278,7 +278,7 @@ def sharp():
     submit_button = CTkButton(root, text="Yes", width=200, height=40, command=lambda: handle_sharp())
     submit_button.place(x=500, y=200)
 
-def edge_detection():
+def edge_enhance():
     remove_widgets()
 
     label_edge = CTkLabel(root, text="Do you want to Enhance Edges in your Image:", width=200, height=40)
@@ -333,7 +333,7 @@ button_blur.pack(side=TOP, pady=10)
 button_sharp = CTkButton(frame1, text="Sharpen Image", width=200, height=40, command=sharp)
 button_sharp.pack(side=TOP, pady=10)
 
-button_edge = CTkButton(frame1, text="Edge Detection", width=200, height=40, command=edge_detection)
+button_edge = CTkButton(frame1, text="Edge Detection", width=200, height=40, command=edge_enhance)
 button_edge.pack(side=TOP, pady=10)
 
 root.mainloop()
