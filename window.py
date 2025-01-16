@@ -219,6 +219,27 @@ def crop():
     submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_crop(left_entry, top_entry, right_entry, bottom_entry))
     submit_button.place(x=500, y=350)
 
+def rotate():
+    remove_widgets()
+
+    label_angle = CTkLabel(root, text="Enter Angle (in degrees):", width=200, height=40)
+    label_angle.place(x=250, y=150)
+
+    angle_entry = CTkEntry(root, width=200, height=40)
+    angle_entry.place(x=500, y=150)
+
+    def handle_rotate(angle_entry):
+        angle = angle_entry.get()
+
+        for i in img_path:
+            img_rotate(i, int(angle))
+        
+        res = CTkLabel(root, text="Image Rotated Successfully", width=200, height=40)
+        res.place(x=500, y=250)
+    
+    submit_button = CTkButton(root, text="Submit", width=200, height=40, command=lambda: handle_rotate(angle_entry))
+    submit_button.place(x=500, y=200)
+
 # Set up the Tkinter root window
 root = CTk()  # Create the main window
 root.geometry("1000x800")
@@ -247,5 +268,8 @@ button_resize.pack(side=TOP, pady=10)
 
 button_crop = CTkButton(frame1, text="Crop Image", width=200, height=40, command=crop)
 button_crop.pack(side=TOP, pady=10)
+
+button_rotate = CTkButton(frame1, text="Rotate Image", width=200, height=40, command=rotate)
+button_rotate.pack(side=TOP, pady=10)
 
 root.mainloop()

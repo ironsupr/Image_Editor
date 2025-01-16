@@ -93,11 +93,11 @@ def img_rotate(path, angle, output_dir = "Rotated_Img"):
         create_directory(output_dir)
         img = Image.open(path)
         file_name = os.path.basename(path)
-        exif_data = img._getexif()
-        img_corrected = ImageOps.exif_transpose(img)
-        img_corrected.save(os.path.join(output_dir, file_name))
-        # rotated_img = img.rotate(angle)
-        # rotated_img.save(os.path.join(output_dir, file_name))
+        # exif_data = img._getexif()
+        # img_corrected = ImageOps.exif_transpose(img)
+        # img_corrected.save(os.path.join(output_dir, file_name))
+        rotated_img = img.rotate(angle)
+        rotated_img.save(os.path.join(output_dir, file_name))
     except Exception as e:
         print(f"Error rotating {path}: {e}")
 
