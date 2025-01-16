@@ -32,15 +32,25 @@ def create_directory(directory):
 
 def img_compress(path, quality, way, output_dir = "Image_Compressed"):
     try:
+        # Create the output directory if it doesn't exist
         create_directory(output_dir)
+        
+        # Open the image file
         img = Image.open(path)
         file_name = os.path.basename(path)
 
+        # Handle "Quality" compression
         if way == "Quality":
+            # Ensure quality is an integer between 0 and 100
+            quality = int(quality * 100)  # Scale from 0-1 to 0-100
             img.save(os.path.join(output_dir, file_name), quality=quality)
+        
+        # Handle "Size" compression (DPI)
         elif way == "Size":
-            x, y = quality
-            img.save(os.path.join(output_dir, file_name), dpi=(x, y))
+            # Assuming quality is a string like "300,300" for DPI
+            dpi = quality.split(",")
+            dpi = tuple(map(int, dpi))  # Convert to tuple of integers (x, y)
+            img.save(os.path.join(output_dir, file_name), dpi=dpi)
     except Exception as e:
         print(f"Error compressing {path}: {e}")
 
@@ -56,12 +66,24 @@ def img_resize(path, height, width, output_dir = "Resized_Img"):
         print(f"Error resizing {path}: {e}")
 
 
-def img_crop(path, left, top, right, bottom, output_dir = "Cropped_Img"):
+def img_crop(path, left, top, right, bottom, output_dir="Cropped_Img"):
     try:
         create_directory(output_dir)
         img = Image.open(path)
-        file_name = os.path.basename(path)
+        
+        # Check if the coordinates are valid
+        if left < 0 or top < 0 or right > img.width or bottom > img.height:
+            raise ValueError(f"Invalid crop coordinates for {path}. Coordinates must be within the image bounds.")
+        
+        # Perform the crop
         cropped_img = img.crop((left, top, right, bottom))
+
+        # Ensure the cropped image is not empty
+        if cropped_img.width == 0 or cropped_img.height == 0:
+            raise ValueError(f"The crop resulted in an empty image for {path}.")
+        
+        # Save the cropped image
+        file_name = os.path.basename(path)
         cropped_img.save(os.path.join(output_dir, file_name))
     except Exception as e:
         print(f"Error cropping {path}: {e}")
@@ -119,3 +141,5 @@ def img_show_metadata(path):
     except Exception as e:
         print(f"Error getting metadata for {path}: {e}")
 
+for i in img_path:
+    img_crop(i, 100, 100, 200, 200)
