@@ -295,6 +295,23 @@ def edge_enhance():
     submit_button = CTkButton(root, text="Yes", width=200, height=40, command=lambda: handle_edge())
     submit_button.place(x=500, y=200)
 
+def mirror():
+    remove_widgets()
+
+    label_mirror = CTkLabel(root, text="Do you want to Mirror your Image:", width=200, height=40)
+    label_mirror.place(x=500, y=150)
+
+    def handle_mirror():
+
+        for i in img_path:
+            img_mirror(i)
+        
+        res = CTkLabel(root, text="Image Mirrored Successfully", width=200, height=40)
+        res.place(x=500, y=250)
+
+    submit_button = CTkButton(root, text="Yes", width=200, height=40, command=lambda: handle_mirror())
+    submit_button.place(x=500, y=200)
+
 # Set up the Tkinter root window
 root = CTk()  # Create the main window
 root.geometry("1000x800")
@@ -306,8 +323,11 @@ set_appearance_mode("dark")
 frame1 = CTkFrame(root, width=200, height=800)
 frame1.pack(side=LEFT, fill=Y)
 
+welcome = CTkLabel(root, text="Welcome to Image Editor", fg_color="transparent", bg_color="transparent", font=("Arial", 30))
+welcome.place(x=450, y=300)
+
 # Add a label at the top of the frame
-label = CTkLabel(frame1, text="Image Editor", fg_color="transparent", bg_color="transparent")
+label = CTkLabel(frame1, text="Image Editor", fg_color="transparent", bg_color="transparent", font=("Arial", 20))
 label.pack(side=TOP, pady=10)
 
 # Create the 'Edit Image' button
@@ -335,5 +355,8 @@ button_sharp.pack(side=TOP, pady=10)
 
 button_edge = CTkButton(frame1, text="Edge Detection", width=200, height=40, command=edge_enhance)
 button_edge.pack(side=TOP, pady=10)
+
+button_mirror = CTkButton(frame1, text="Mirror Image", width=200, height=40, command=mirror)
+button_mirror.pack(side=TOP, pady=10)
 
 root.mainloop()

@@ -141,5 +141,12 @@ def img_show_metadata(path):
     except Exception as e:
         print(f"Error getting metadata for {path}: {e}")
 
-for i in img_path:
-    img_crop(i, 100, 100, 200, 200)
+def img_mirror(path, output_dir = "Mirrored_Img"):
+    try:
+        create_directory(output_dir)
+        img = Image.open(path)
+        file_name = os.path.basename(path)
+        mirrored_img = ImageOps.mirror(img)
+        mirrored_img.save(os.path.join(output_dir, file_name))
+    except Exception as e:
+        print(f"Error mirroring {path}: {e}")
