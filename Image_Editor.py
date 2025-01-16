@@ -3,7 +3,7 @@ import os
 from PIL import Image, ImageEnhance, ImageFilter, ImageOps
 
 img_path = []
-path = "D:\Project\Image_Editor\Images"
+path = "" # Path to the folder containing images
 for filename in os.listdir(path):
     img_path.append(os.path.join(path, filename))
 
